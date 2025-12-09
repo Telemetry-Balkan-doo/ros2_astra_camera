@@ -14,7 +14,6 @@ endif ()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(astra_camera_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
@@ -40,6 +39,7 @@ find_package(tf2_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_sensor_msgs REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 pkg_search_module(LIBUVC REQUIRED libuvc)
 if (NOT LIBUVC_FOUND)
@@ -94,6 +94,11 @@ set(dependencies
   message_filters
   camera_info_manager
   )
+
+include_directories(
+  include
+  /opt/ros/jazzy/include
+)
 
 add_library(${PROJECT_NAME} SHARED
   src/point_cloud_proc/point_cloud_xyz.cpp

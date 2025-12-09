@@ -11,19 +11,29 @@
 /**************************************************************************/
 
 #pragma once
+
+#include <memory>
+
 #include <rclcpp/rclcpp.hpp>
+#include <rclcpp/node_interfaces/node_parameters_interface.hpp>
 
-namespace astra_camera {
-class ParametersBackend {
- public:
-  explicit ParametersBackend(rclcpp::Node* node);
-  ~ParametersBackend();
-  void addOnSetParametersCallback(
-      rclcpp::node_interfaces::NodeParametersInterface::OnParametersSetCallbackType callback);
+namespace astra_camera
+{
 
- private:
-  rclcpp::Node* node_;
-  rclcpp::Logger logger_;
-  std::shared_ptr<void> ros_callback_;
+class ParametersBackend
+{
+public:
+    explicit ParametersBackend(rclcpp::Node * node);
+    ~ParametersBackend();
+
+    void addOnSetParametersCallback(
+        rclcpp::node_interfaces::OnSetParametersCallbackHandle::OnSetParametersCallbackType callback);
+
+private:
+    rclcpp::Node * node_;
+    rclcpp::Logger logger_;
+    rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr ros_callback_;
 };
+
 }  // namespace astra_camera
+
